@@ -8,7 +8,8 @@ import java.io.Serializable;
 @Table(name = "users")
 public class Users implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Long userId;
     @Column(nullable = false)
     private  String userNom;
@@ -19,9 +20,8 @@ public class Users implements Serializable {
     @Column(nullable = false)
     private  String userPassword;
 
-
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "roleId")
     private  Roles role;
 
     //Constructors
@@ -29,12 +29,12 @@ public class Users implements Serializable {
     public Users() {
     }
 
-    public Users(String userNom, String userPrenom, String userEmail, String userPassword) {
+    public Users(String userNom, String userPrenom, String userEmail, String userPassword,Roles role) {
         this.userNom = userNom;
         this.userPrenom = userPrenom;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
-       // this.role = role;
+        this.role = role;
     }
 
     public Users(Long userId, String userNom, String userPrenom, String userEmail, String userPassword, Roles role) {

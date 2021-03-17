@@ -2,35 +2,30 @@ package org.example.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
 @Table(name = "Role")
 public class Roles implements Serializable {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long RoleId;
     @Column(nullable = false, unique = true)
     private String roleName;
+
     //Constructor
     public Roles(){}
 
-    public Roles(int id, String roleName) {
-        this.id = id;
-        this.roleName = roleName;
-    }
 
-    public Roles(String roleName) {
-        this.roleName = roleName;
-    }
 
     //Getters and Setters
 
-    public int getId() {
-        return id;
+    public Long getId() {
+        return RoleId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Long id) {
+        this.RoleId = id;
     }
 
     public String getRoleName() {
@@ -44,7 +39,7 @@ public class Roles implements Serializable {
     @Override
     public String toString() {
         return "Roles{" +
-                "id=" + id +
+                "id=" + RoleId +
                 ", roleName='" + roleName + '\'' +
                 '}';
     }

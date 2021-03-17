@@ -33,6 +33,8 @@
         <!-- Enities to map -->
         <mapping class="org.example.entities.Users" />
         <mapping class="org.example.entities.Roles" />
+        <mapping class="org.example.entities.Student" />
+
 
     </session-factory>
 </hibernate-configuration>

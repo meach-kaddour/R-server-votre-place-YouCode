@@ -17,7 +17,7 @@ public class RoleDaoImpl implements RoleDao{
     }
 
     @Override
-    public Roles getRoleById(int id) {
+    public Roles getRoleById(Long id) {
         session = HibernateUtil.getSession();
         session.beginTransaction();
         Roles role = session.find(Roles.class, id);
@@ -35,7 +35,7 @@ public class RoleDaoImpl implements RoleDao{
     }
 
     @Override
-    public void deleteRole(int id) {
+    public void deleteRole(Long id) {
         Roles role;
         session = HibernateUtil.getSession();
         session.beginTransaction();

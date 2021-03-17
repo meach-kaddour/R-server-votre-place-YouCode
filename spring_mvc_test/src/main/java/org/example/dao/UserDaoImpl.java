@@ -3,11 +3,13 @@ package org.example.dao;
 import org.example.HibernateUtil.HibernateUtil;
 import org.example.entities.Users;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
 public class UserDaoImpl implements UserDao{
-    Session session;
+    Session session=null;
+    Transaction transaction=null;
 
     @Override
     public void createUser(Users user) {
@@ -18,7 +20,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public Users getUserById(int id) {
+    public Users getUserById(Long id) {
         session = HibernateUtil.getSession();
         session.beginTransaction();
         Users user = session.find(Users.class, id);
@@ -36,7 +38,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void dropUser(int id) {
+    public void dropUser(Long id) {
         Users user;
         session = HibernateUtil.getSession();
         session.beginTransaction();
