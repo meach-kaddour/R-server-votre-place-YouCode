@@ -4,9 +4,12 @@ import org.example.HibernateUtil.HibernateUtil;
 import org.example.entities.Users;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository("UserDao")
+@Component
 public class UserDaoImpl implements UserDao{
     Session session=null;
     Transaction transaction=null;
