@@ -7,13 +7,13 @@ import java.io.Serializable;
 @Table(name = "admin")
 public class Admin extends  Users implements Serializable  {
 
-    private String Profession;
+    private String name;
 
-    public String getProfession() {
-        return Profession;
+    public String getName() {
+        return name;
     }
 
-    public void setProfession(String profession) {
-        Profession = profession;
+    public void setName(String n) {
+        name = n;
     }
 }

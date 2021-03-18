@@ -16,7 +16,7 @@
     <body>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="../../resources/image/logo.png" width="30" height="30" alt="">
+            <img src="${ pageContext.request.contextPath }/resources/image/logo.png" width="30" height="30" alt="">
         </a>
         <h3 class="navbar-brand art-shadow ">Reserve Your Access</h3>
 

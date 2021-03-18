@@ -15,12 +15,15 @@ public class Users implements Serializable {
     private  String userNom;
     @Column(nullable = false)
     private  String userPrenom;
-    @Column(unique = true,nullable = false)
+
+    //@Column(unique = true,nullable = false)
     private  String userEmail;
     @Column(nullable = false)
     private  String userPassword;
 
-    @OneToOne
+
+
+    @ManyToOne
     @JoinColumn(name = "roleId")
     private  Roles role;
 
