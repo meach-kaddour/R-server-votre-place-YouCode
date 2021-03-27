@@ -2,67 +2,107 @@ package org.example.dao;
 
 import org.example.HibernateUtil.HibernateUtil;
 import org.example.entities.Roles;
-import org.hibernate.Session;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+import java.sql.SQLException;
 import java.util.List;
 
+@Repository("RoleDao")
+@Component
 public class RoleDaoImpl implements RoleDao{
-    Session session;
+    Session session=null;
+    Transaction transaction=null;
     @Override
-    public void addRole(Roles role) {
-        session = HibernateUtil.getSession();
-        session.beginTransaction();
-        session.save(role);
-        session.getTransaction().commit();
+    public void createRole(Roles role) throws ClassNotFoundException, SQLException {
+
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+            session.persist(role);
+            // lancer des mises à jour dans la session et faire automatiquement le commit
+            session.flush();
+            // transaction.commit();
+            System.out.println("role est bien crée !");
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     @Override
-    public Roles getRoleById(Long id) {
-        session = HibernateUtil.getSession();
-        session.beginTransaction();
-        Roles role = session.find(Roles.class, id);
-        session.getTransaction().commit();
+    public Roles getRoleById(long id) throws ClassNotFoundException, SQLException {
+        Roles role = null;
+        try {
+
+            session = HibernateUtil.getSessionFactory().openSession();
+            // get user by id
+            role = session.get(Roles.class, id);
+            System.out.println("role lu !");
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
+        }
+
         return role;
     }
 
     @Override
-    public List<Roles> getAllRoles() {
-        session = HibernateUtil.getSession();
-        session.beginTransaction();
-        List<Roles> listRole = session.createQuery("From Roles ").list();
-        session.getTransaction().commit();
-        return listRole;
+    public List<Roles> getAllRoles() throws ClassNotFoundException, SQLException {
+        List<Roles> roles = null;
+        try {
+
+            session = HibernateUtil.getSessionFactory().openSession();
+            org.hibernate.query.Query<Roles> query = session.createQuery("SELECT r FROM Roles  r", Roles.class);
+            roles = query.getResultList();
+
+            System.out.println("roles lus !");
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
+        }
+
+        return roles;
     }
 
     @Override
-    public void deleteRole(Long id) {
-        Roles role;
-        session = HibernateUtil.getSession();
-        session.beginTransaction();
-        role = session.find(Roles.class, id);
-        if (role != null){
+    public void dropRole(long id) throws ClassNotFoundException, SQLException {
+        Roles role = getRoleById(id);
+        try {
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
             session.delete(role);
-            session.flush();
-            System.out.println("Delete Role");
-        }else{
-            System.out.println("Role Not Exist");
+            transaction.commit();
+            System.out.println("role deleted !");
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+
         }
-        session.getTransaction().commit();
     }
 
     @Override
-    public Roles updateRole(Roles role) {
-        Roles roleUp;
-        session = HibernateUtil.getSession();
-        session.beginTransaction();
-        roleUp = session.find(Roles.class, role.getId());
-        if (roleUp != null){
-            roleUp.setRoleName(role.getRoleName());
-            System.out.println("Role Updated");
-        }else{
-            System.out.println("Role Not Exist");
-        }
-        session.getTransaction().commit();
-        return roleUp;
+    public Roles updateRole(Roles role) throws ClassNotFoundException, SQLException {
+        return null;
     }
 }

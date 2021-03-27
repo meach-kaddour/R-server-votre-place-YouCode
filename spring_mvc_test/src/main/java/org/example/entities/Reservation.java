@@ -8,31 +8,35 @@ import java.util.Date;
 @Table(name = "Reservation")
 public class Reservation implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @OneToOne
-    private Users user;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(nullable = false)
     private Date dateRes;
-    private boolean confirmation;
 
-    @OneToOne
-    private TypeReserv typeRes;
+    private boolean confirmation;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private Student student;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    private TypeReservation typeRes;
 
 
 //Constructors
 
     public Reservation(){}
-    public Reservation(Users user, Date dateRes, boolean confirmation, TypeReserv typeRes) {
-        this.user = user;
+
+    public Reservation(Student student, Date dateRes, boolean confirmation, TypeReservation typeRes) {
+        this.student = student;
         this.dateRes = dateRes;
         this.confirmation = confirmation;
         this.typeRes = typeRes;
     }
 
-    public Reservation(int id, Users user, Date dateRes, boolean confirmation, TypeReserv typeRes) {
+    public Reservation(Long id, Student student, Date dateRes, boolean confirmation, TypeReservation typeRes) {
         this.id = id;
-        this.user = user;
+        this.student = student;
         this.dateRes = dateRes;
         this.confirmation = confirmation;
         this.typeRes = typeRes;
@@ -40,20 +44,13 @@ public class Reservation implements Serializable {
 
     //Getters and Stters
 
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
     }
 
     public Date getDateRes() {
@@ -72,11 +69,19 @@ public class Reservation implements Serializable {
         this.confirmation = confirmation;
     }
 
-    public TypeReserv getTypeRes() {
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public TypeReservation getTypeRes() {
         return typeRes;
     }
 
-    public void setTypeRes(TypeReserv typeRes) {
+    public void setTypeRes(TypeReservation typeRes) {
         this.typeRes = typeRes;
     }
 
@@ -84,9 +89,9 @@ public class Reservation implements Serializable {
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", user=" + user +
                 ", dateRes=" + dateRes +
                 ", confirmation=" + confirmation +
+                ", student=" + student +
                 ", typeRes=" + typeRes +
                 '}';
     }

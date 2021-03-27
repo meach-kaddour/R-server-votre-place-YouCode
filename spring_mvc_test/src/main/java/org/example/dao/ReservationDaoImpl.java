@@ -1,34 +1,30 @@
 package org.example.dao;
 
 import org.example.HibernateUtil.HibernateUtil;
-import org.example.entities.Users;
+import org.example.entities.Reservation;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
 
 import java.sql.SQLException;
 import java.util.List;
 
-
-@Repository("UserDao")
+@Repository("ReservationDao")
 @Component
-public class UserDaoImpl implements UserDao{
+public class ReservationDaoImpl implements ReservationDao{
+    Session session=null;
+    Transaction transaction=null;
     @Override
-    public void createUser(Users user) throws ClassNotFoundException, SQLException {
-        Session session = null;
-        Transaction transaction = null;
+    public void createReservation(Reservation reservation) throws ClassNotFoundException, SQLException {
         try {
-
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(user);
+            session.save(reservation);
             // lancer des mises à jour dans la session et faire automatiquement le commit
             session.flush();
             // transaction.commit();
-            System.out.println("User est bien crée !");
+            System.out.println("reservation est bien crée !");
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -42,15 +38,32 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public Users getUserById(Long id) throws ClassNotFoundException, SQLException {
-        Users user = null;
-        Session session = null;
+    public Reservation getReservationById(long id) throws ClassNotFoundException, SQLException {
+        Reservation reservation = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            // get Reservation by id
+            reservation = session.get(Reservation.class, id);
+            System.out.println("Reservation lu !");
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return reservation;
+    }
+
+    @Override
+    public List<Reservation> getAllReservations() throws ClassNotFoundException, SQLException {
+        List<Reservation> reservations = null;
         try {
 
             session = HibernateUtil.getSessionFactory().openSession();
-            // get user by id
-            user = session.get(Users.class, id);
-            System.out.println("User lu !");
+            org.hibernate.query.Query<Reservation> query = session.createQuery("SELECT rs FROM Reservation rs", Reservation.class);
+            //org.hibernate.query.Query<Student> query = session.createNamedQuery("students.All", Student.class);
+            reservations = query.getResultList();
+
+            System.out.println("Resrvations lus !");
         } finally {
             if (session != null) {
                 session.close();
@@ -58,42 +71,18 @@ public class UserDaoImpl implements UserDao{
 
         }
 
-        return user;
+        return reservations;
     }
 
     @Override
-    public List<Users> getAllUsers() throws ClassNotFoundException, SQLException {
-        Session session = null;
-        List<Users> users = null;
-        try {
-
-            session = HibernateUtil.getSessionFactory().openSession();
-            //org.hibernate.query.Query<Users> query = session.createQuery("SELECT u FROM Users u", Users.class);
-            org.hibernate.query.Query<Users> query = session.createNamedQuery("users.All", Users.class);
-            users = query.getResultList();
-
-            System.out.println("Users lus !");
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-
-        }
-
-        return users;
-    }
-
-    @Override
-    public void dropUser(long id) throws ClassNotFoundException, SQLException {
-        Users user = getUserById(id);
-        Session session = null;
-        Transaction transaction = null;
+    public void dropReservation(long id) throws ClassNotFoundException, SQLException {
+        Reservation reservation = getReservationById(id);
         try {
             session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
-            session.delete(user);
+            session.delete(reservation);
             transaction.commit();
-            System.out.println("user deleted !");
+            System.out.println("reservation deleted !");
 
         } catch (Exception e) {
             if (transaction != null) {
@@ -106,27 +95,23 @@ public class UserDaoImpl implements UserDao{
             }
 
         }
-
     }
 
     @Override
-    public Users updateUser(Users user) throws ClassNotFoundException, SQLException {
-        Users userUp = null;
-        Session session = null;
-        Transaction transaction = null;
+    public Reservation updateReservation(Reservation reservation) throws ClassNotFoundException, SQLException {
+        Reservation reservationUp = null;
+
         try{
             session = HibernateUtil.getSessionFactory().getCurrentSession();
             session.beginTransaction();
-            userUp = session.find(Users.class, user.getUserId());
-            if (userUp != null){
-                userUp.setUserNom(user.getUserNom());
-                userUp.setUserPrenom(user.getUserPrenom());
-                userUp.setUserEmail(user.getUserEmail());
-                userUp.setUserPassword(user.getUserPassword());
-                userUp.setRole(user.getRole());
-                System.out.println("User updated");
+            reservationUp = session.find(Reservation.class, reservation.getId());
+            if (reservationUp != null){
+                reservationUp.setDateRes(reservation.getDateRes());
+                reservationUp.setConfirmation(reservation.isConfirmation());
+                reservationUp.setTypeRes(reservation.getTypeRes());
+                System.out.println("Resrvation  updated");
             }else{
-                System.out.println("User does not exist");
+                System.out.println("Reservation does not exist");
             }
             session.getTransaction().commit();
         }catch (Exception e) {
@@ -138,9 +123,7 @@ public class UserDaoImpl implements UserDao{
             if (session != null) {
                 session.close();
             }
-
-        }
-        
-        return userUp;
     }
+        return reservationUp;
+}
 }

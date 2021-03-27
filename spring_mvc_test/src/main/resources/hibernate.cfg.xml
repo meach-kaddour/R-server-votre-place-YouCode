@@ -34,6 +34,10 @@
         <mapping class="org.example.entities.Users" />
         <mapping class="org.example.entities.Roles" />
         <mapping class="org.example.entities.Student" />
+        <mapping class="org.example.entities.Administrator" />
+        <mapping class="org.example.entities.Reservation" />
+        <mapping class="org.example.entities.SignUp" />
+        <mapping class="org.example.entities.TypeReservation" />
 
 
     </session-factory>

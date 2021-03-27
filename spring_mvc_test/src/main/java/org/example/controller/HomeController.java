@@ -3,6 +3,7 @@ package org.example.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.example.entities.SignUp;
 import org.example.entities.Users;
 import org.example.services.UserService;
 import org.example.services.UserServiceImpl;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -25,53 +27,61 @@ public class HomeController {
 	private UserService userService;
 
 	Users user;
-
-
 	@RequestMapping(value="/")
-	public String test(Model model) throws IOException{
+	public String showHomePage(Model model) throws IOException{
+		model.addAttribute("user", user);
+		return "home";
+	}
+	@RequestMapping(value="/index")
+	public String showHomePageIn(Model model) throws IOException{
 		model.addAttribute("user", user);
 		return "home";
 	}
 	//get login page
-	@RequestMapping(value="/login")
-	public String login(Model model) throws IOException{
+	@RequestMapping(value="/loginPage")
+	public String ShowLoginPage(Model model) throws IOException{
 		model.addAttribute("user", user);
 		return "login";
 	}
-	//login
-	@RequestMapping(value = "/Login",method= RequestMethod.POST)
-	public String login(@ModelAttribute Users user, Model model) throws SQLException, ClassNotFoundException {
-
-		String email=user.getUserEmail();
-		String password=user.getUserPassword();
-
-		System.out.println(email);
-		System.out.println(password);
 
 
-		if (userService.validate(email,password)== true ){
-			System.out.println("login successful");
-			return "redirect:/studentPage";
-		}else{
-			return "redirect:/login";
-		}
+	@RequestMapping(value="/studentPage")
+	public ModelAndView showStudentPage(HttpServletResponse response) throws IOException{
+		return new ModelAndView("studentPage");
 	}
 
+	@RequestMapping(value="/adminPage")
+	public ModelAndView showDashbordPage(HttpServletResponse response) throws IOException{
+		return new ModelAndView("dashboard");
+	}
+	@RequestMapping(value="/confirmReg")
+	public ModelAndView showConfirmationPage(HttpServletResponse response) throws IOException{
+		return new ModelAndView("confirmReg");
+	}
 
+	//Registration
+	@RequestMapping(value ="/register", method = RequestMethod.POST)
+	public String Register(HttpServletRequest req,Model model) throws IOException, SQLException, ClassNotFoundException {
 
+		String firstName=req.getParameter("prenom");
+		String lastName=req.getParameter("nom");
+		String email=req.getParameter("email");
+		String password=req.getParameter("password");
+
+		Users u=new Users(firstName,lastName,email,password,null,null,null);
+		model.addAttribute("newUser",u);
+		userService.save(u);
+		System.out.println("register done");
+		return "redirect:/confirmReg";
+	}
 /*
-	@RequestMapping(value="/")
-	public ModelAndView test(HttpServletResponse response) throws IOException{
-		return new ModelAndView("home");
-	}*/
-	/*
 	@RequestMapping(value="/login")
 	public ModelAndView loginPage(HttpServletResponse response) throws IOException{
 		return new ModelAndView("login");
 	}
 
 	@RequestMapping(value ="/register" ,method= RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute("student") Student student, BindingResult bindingResult){
+	public ModelAndView register(@ModelAttribute("Users") Student student, BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
 			return new ModelAndView("register");
 		}

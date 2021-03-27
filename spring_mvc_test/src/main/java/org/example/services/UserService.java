@@ -1,6 +1,7 @@
 package org.example.services;
 
 
+import org.example.entities.Roles;
 import org.example.entities.Users;
 
 import java.sql.SQLException;
@@ -13,4 +14,7 @@ public interface UserService {
     public void delete(Long id) throws ClassNotFoundException, SQLException;
 
     public boolean validate(String email,String password) throws ClassNotFoundException, SQLException;
+    public Roles getByRole(Long id) throws ClassNotFoundException, SQLException;
+
+    public Users getByEmail(String email) throws ClassNotFoundException, SQLException;
 }

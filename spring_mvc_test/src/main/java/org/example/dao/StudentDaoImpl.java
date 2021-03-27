@@ -4,19 +4,22 @@ import org.example.HibernateUtil.HibernateUtil;
 import org.example.entities.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
+import java.sql.SQLException;
 import java.util.List;
 
-@Repository("StudentDao")
-public class StudentDaoImpl implements StudentDao{
 
-    Session session=null;
-    Transaction transaction =null;
+@Repository("StudentDao")
+@Component
+public class StudentDaoImpl implements StudentDao{
+    Session session = null;
+    Transaction transaction = null;
     @Override
-    public boolean createStudent(Student student) {
+    public void createStudent(Student student) throws ClassNotFoundException, SQLException {
+
         try {
-            session = HibernateUtil.getSession();
+            session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
             session.persist(student);
             // lancer des mises à jour dans la session et faire automatiquement le commit
@@ -33,18 +36,17 @@ public class StudentDaoImpl implements StudentDao{
                 session.close();
             }
         }
-        return false;
     }
 
     @Override
-    public Student getStudentById(Long id) {
-        Student student=null;
+    public Student getStudentById(long id) throws ClassNotFoundException, SQLException {
+        Student student = null;
         try {
 
-            session = HibernateUtil.getSession();
-            // get joueur by id
+            session = HibernateUtil.getSessionFactory().openSession();
+            // get student by id
             student = session.get(Student.class, id);
-            System.out.println("lu");
+            System.out.println("Student lu !");
         } finally {
             if (session != null) {
                 session.close();
@@ -56,16 +58,16 @@ public class StudentDaoImpl implements StudentDao{
     }
 
     @Override
-    public List<Student> getAllStudents() {
+    public List<Student> getAllStudents() throws ClassNotFoundException, SQLException {
         List<Student> students = null;
         try {
 
-            session = HibernateUtil.getSession();
-            org.hibernate.query.Query<Student> query = session.createQuery("SELECT t FROM Student t", Student.class);
-            //org.hibernate.query.Query<Student> query = session.createNamedQuery("Student.All", Student.class);
+            session = HibernateUtil.getSessionFactory().openSession();
+            org.hibernate.query.Query<Student> query = session.createQuery("SELECT s FROM Student s", Student.class);
+            //org.hibernate.query.Query<Student> query = session.createNamedQuery("students.All", Student.class);
             students = query.getResultList();
 
-            System.out.println("students lu !");
+            System.out.println("Students lus !");
         } finally {
             if (session != null) {
                 session.close();
@@ -77,15 +79,14 @@ public class StudentDaoImpl implements StudentDao{
     }
 
     @Override
-    public void dropStudent(Long id) {
+    public void dropStudent(long id) throws ClassNotFoundException, SQLException {
         Student student = getStudentById(id);
-
         try {
-            session = HibernateUtil.getSession();
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
             session.delete(student);
             transaction.commit();
-            System.out.println("student suprimé !");
+            System.out.println("student deleted !");
 
         } catch (Exception e) {
             if (transaction != null) {
@@ -98,10 +99,11 @@ public class StudentDaoImpl implements StudentDao{
             }
 
         }
+
     }
 
     @Override
-    public Student updateStudent(Student student) {
+    public Student updateStudent(Student student) throws ClassNotFoundException, SQLException {
         return null;
     }
 }

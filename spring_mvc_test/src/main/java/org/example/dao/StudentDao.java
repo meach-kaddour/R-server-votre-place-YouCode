@@ -1,14 +1,14 @@
 package org.example.dao;
 
 import org.example.entities.Student;
-import org.example.entities.Users;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface StudentDao {
-    public boolean createStudent(Student student);
-    public Student getStudentById(Long id);
-    public List<Student> getAllStudents();
-    public void dropStudent(Long id);
-    public Users updateStudent(Student student);
+    public  void createStudent(Student student)throws ClassNotFoundException, SQLException;
+    public Student getStudentById(long id)throws ClassNotFoundException, SQLException;
+    public List<Student> getAllStudents()throws ClassNotFoundException, SQLException;
+    public void dropStudent(long id)throws ClassNotFoundException, SQLException;
+    public Student updateStudent(Student student)throws ClassNotFoundException, SQLException;
 }

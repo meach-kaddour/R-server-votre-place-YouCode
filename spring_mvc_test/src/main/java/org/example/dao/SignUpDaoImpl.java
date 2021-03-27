@@ -1,8 +1,7 @@
 package org.example.dao;
 
 import org.example.HibernateUtil.HibernateUtil;
-import org.example.entities.Administrator;
-
+import org.example.entities.SignUp;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
@@ -11,22 +10,22 @@ import org.springframework.stereotype.Repository;
 import java.sql.SQLException;
 import java.util.List;
 
-@Repository("AdminDao")
+@Repository("SignUpDao")
 @Component
-public class AdminDaoImpl implements AdminDao{
-
+public class SignUpDaoImpl implements SignUpDao {
     Session session = null;
     Transaction transaction = null;
+
     @Override
-    public void createAdministrator(Administrator admin) throws ClassNotFoundException, SQLException {
+    public void createSignUp(SignUp signUp) throws ClassNotFoundException, SQLException {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(admin);
+            session.persist(signUp);
             // lancer des mises à jour dans la session et faire automatiquement le commit
             session.flush();
             // transaction.commit();
-            System.out.println("admin est bien crée !");
+            System.out.println("user registeravec sucess ");
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -40,32 +39,31 @@ public class AdminDaoImpl implements AdminDao{
     }
 
     @Override
-    public Administrator getAdministratorById(long id) throws ClassNotFoundException, SQLException {
-        Administrator admin = null;
+    public SignUp getSignUpById(long id) throws ClassNotFoundException, SQLException {
+        SignUp signUp = null;
         try {
 
             session = HibernateUtil.getSessionFactory().openSession();
             // get user by id
-            admin = session.get(Administrator.class, id);
-            System.out.println("Admin lu !");
+            signUp = session.get(SignUp.class, id);
+            System.out.println("user register lu !");
         } finally {
             if (session != null) {
                 session.close();
             }
 
         }
-
-        return admin;
+        return signUp;
     }
+
     @Override
-    public List<Administrator> getAllAdministrators() throws ClassNotFoundException, SQLException {
-        List<Administrator> admins = null;
+    public List<SignUp> getAllSignUp() throws ClassNotFoundException, SQLException {
+        List<SignUp> signUpList = null;
         try {
 
             session = HibernateUtil.getSessionFactory().openSession();
-            org.hibernate.query.Query<Administrator> query = session.createQuery("SELECT a FROM Administrator a", Administrator.class);
-            //org.hibernate.query.Query<Student> query = session.createNamedQuery("students.All", Student.class);
-            admins = query.getResultList();
+            org.hibernate.query.Query<SignUp> query = session.createQuery("SELECT S FROM SignUp S", SignUp.class);
+            signUpList = query.getResultList();
 
             System.out.println("Admins lus !");
         } finally {
@@ -75,18 +73,18 @@ public class AdminDaoImpl implements AdminDao{
 
         }
 
-        return admins;
+        return signUpList;
     }
 
     @Override
-    public void dropAdministrator(long id) throws ClassNotFoundException, SQLException {
-        Administrator admin = getAdministratorById(id);
+    public void dropSignUp(long id) throws ClassNotFoundException, SQLException {
+        SignUp signUp = getSignUpById(id);
         try {
             session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
-            session.delete(admin);
+            session.delete(signUp);
             transaction.commit();
-            System.out.println("admin deleted !");
+            System.out.println("user Register deleted !");
 
         } catch (Exception e) {
             if (transaction != null) {
@@ -102,7 +100,7 @@ public class AdminDaoImpl implements AdminDao{
     }
 
     @Override
-    public Administrator updateAdministrator(Administrator admin) throws ClassNotFoundException, SQLException {
+    public SignUp updateSignUp(SignUp SignUp) throws ClassNotFoundException, SQLException {
         return null;
     }
 }

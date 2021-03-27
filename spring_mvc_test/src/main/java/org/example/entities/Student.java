@@ -2,13 +2,20 @@ package org.example.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
 @Entity
-@PrimaryKeyJoinColumn(name = "studentId")
+@PrimaryKeyJoinColumn(name = "user_id")
 @Table(name = "student")
 public class Student extends Users implements Serializable {
-    @Column(nullable = false)
-    private String nombreReservation;
 
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
+
+    @OneToMany
+    private List<Reservation> reservations;
 
     private boolean valide=false;
     //Getters and Setters
@@ -21,27 +28,41 @@ public class Student extends Users implements Serializable {
         this.valide = valide;
     }
 
-
-
-    public String getNombreReservation() {
-        return nombreReservation;
+    public Users getUsers() {
+        return users;
     }
 
-    public void setNombreReservation(String reservationMax) {
-        this.nombreReservation = reservationMax;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
 
     //Constructors
     public Student(){}
 
-    public Student(String userNom, String userPrenom, String userEmail, String userPassword, Roles role, String nombreReservation) {
-        super(userNom, userPrenom, userEmail, userPassword, role);
-        this.nombreReservation = nombreReservation;
+    public Student(Users  users){
+        this.users=users;
     }
 
-    public Student(Long userId, String userNom, String userPrenom, String userEmail, String userPassword, Roles role, String nombreReservation) {
-        super(userId, userNom, userPrenom, userEmail, userPassword, role);
-        this.nombreReservation = nombreReservation;
+    public Student(Long userId, String userNom, String userPrenom, String userEmail, String userPassword, Administrator administrator, Student student, Roles role, Users users, List<Reservation> reservations, boolean valide) {
+        super(userId, userNom, userPrenom, userEmail, userPassword, administrator, student, role);
+        this.users = users;
+        this.reservations = reservations;
+        this.valide = valide;
     }
+
+    public Student(String userNom, String userPrenom, String userEmail, String userPassword, Administrator administrator, Student student, Roles role, Users users, boolean valide) {
+        super( userNom, userPrenom, userEmail, userPassword, administrator, student, role);
+        this.users = users;
+        this.valide = valide;
+    }
+
+
 }

@@ -10,12 +10,18 @@
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 </head>
 <body>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <!--<img src="../../resources/image/logo.png" width="30" height="30" alt="">-->
+    </a>
+    <h3 class="navbar-brand art-shadow ">Reserve Your Access</h3>
 
+</nav>
             <div class='login-box'>
                 <h1>Login here</h1>
                 <form action="Login" method="post">
                     <p>Email</p>
-                    <input type="email" name="username" placeholder="Entrer Email">
+                    <input type="email" name="email" placeholder="Entrer Email">
                     <p>Password</p>
 
                     <input type="password" name="password" placeholder="Entrer password">
