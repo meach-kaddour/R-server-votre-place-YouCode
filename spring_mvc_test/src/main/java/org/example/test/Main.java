@@ -14,20 +14,21 @@ public class Main {
        //RoleDao d=new RoleDaoImpl();
        // Roles role=d.getRoleById(1L);
 
-        //UserService u=new UserServiceImpl();
-        //u.getByEmail("gmail@gmail.com");
+       // UserService u=new UserServiceImpl();
+        //u.validate("kaddour@gmail.com","admin");
+        //u.findAll();
         //Test Dao
 //DAO_USER
-        //UserDao user = new UserDaoImpl();
-        //List<Users> list=user.getAllUsers();
-       //System.out.println("ww  :"+user.getAllUsers());
+       UserDao user = new UserDaoImpl();
+       List<Users> list=user.getAllUsers();
+       System.out.println("ww  :"+list);
         //user.createUser(new Users("kamal","kamil","kaddour","howa",null ,null,null));
 
         //user.updateUser(new Users(1L,"jamil","jamal","jamal","howa",null ,null,null));
 
        //Users user1 = user.getUserById(1L);
         //System.out.println(user1.toString());
-        //user.dropUser(1L);
+        //user.dropUser(19L);
 
 
  ///DAO_STUDENT
@@ -43,22 +44,22 @@ public class Main {
 
  //DAO_Reservation
 
-        /*StudentDao student=new StudentDaoImpl();
-       ReservationDao r=new ReservationDaoImpl();
-        Student stu=student.getStudentById(4L);
-        Date dt=new Date();
-        TypeReservation tR=new TypeReservation("week",30);
-        r.createReservation(new Reservation(stu,dt,false,tR));*/
+        /*StudentDao student=new StudentDaoImpl();*/
+       //ReservationDao r=new ReservationDaoImpl();
+        //Student stu=student.getStudentById(4L);
+        //Date dt=new Date();
+        //TypeReservation tR=new TypeReservation("week",30);
+        //r.createReservation(new Reservation(stu,dt,false,tR));
         //System.out.println(r.getAllReservations());
         //r.getReservationById(8L);
         //r.updateReservation(r.getReservationById(8L));
         //r.dropReservation(8L);
 
 //Dao admin
-     AdminDao user = new AdminDaoImpl();
+     //AdminDao user = new AdminDaoImpl();
         //List<Administrator> list=user.getAllAdministrators();
         //System.out.println("ww  :"+list);
-       user.createAdministrator(new Administrator("kamal","kamil","kaddour@gmail.com","admin",null ,null,null));
+       //user.createAdministrator(new Administrator("kamal","kamil","kaddour@gmail.com","admin",null ,null,null));
 
         //user.updateAdministrator(new Administrator("jamil","jamal","jamal","howa",null ,null,null));
 
