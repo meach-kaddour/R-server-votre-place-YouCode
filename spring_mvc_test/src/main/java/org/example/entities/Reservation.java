@@ -86,13 +86,8 @@ public class Reservation implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", dateRes=" + dateRes +
-                ", confirmation=" + confirmation +
-                ", student=" + student +
-                ", typeRes=" + typeRes +
-                '}';
-    }
+	public String toString() {
+		return "Reservation [id=" + id + ", dateRes=" + dateRes + ", confirmation=" + confirmation + ", student="
+				+ student.getUserNom() + ", typeRes=" + typeRes + "]";
+	}
 }

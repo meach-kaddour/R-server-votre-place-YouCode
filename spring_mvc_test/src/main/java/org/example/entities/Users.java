@@ -7,8 +7,7 @@ import java.io.Serializable;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
-@NamedQuery(query = "SELECT u FROM Users u where u.userEmail = :email", name = "userByEmail")
-//@NamedQuery(query = "SELECT u FROM Users u", name = "users.All")
+@NamedQuery(query = "SELECT u FROM Users u where u.userEmail = :email", name = "userByEmail" )
 public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,7 +32,7 @@ public class Users implements Serializable {
     @OneToOne
     private Student student;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "roleId")
     private  Roles role;
 
@@ -134,8 +133,6 @@ public class Users implements Serializable {
                 ", userNom='" + userNom + '\'' +
                 ", userPrenom='" + userPrenom + '\'' +
                 ", userEmail='" + userEmail + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", role=" + role +
                 '}';
     }
 }
