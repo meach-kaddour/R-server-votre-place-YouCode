@@ -5,6 +5,7 @@ import org.example.entities.Users;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -69,7 +70,9 @@ public class UserDaoImpl implements UserDao{
 
             session = HibernateUtil.getSessionFactory().openSession();
             //org.hibernate.query.Query<Users> query = session.createQuery("SELECT u FROM Users u", Users.class);
-            org.hibernate.query.Query<Users> query = session.createNamedQuery("users.All", Users.class);
+            //org.hibernate.query.Query<Users> query = session.createNamedQuery("GET_ALL_STUDENTS");
+            Query query = session.createQuery("select u from Users u join Student s where u.userId = s.userId ");
+            //query.setParameter("value1", "maValeur");
             users = query.getResultList();
 
             System.out.println("Users lus !");
