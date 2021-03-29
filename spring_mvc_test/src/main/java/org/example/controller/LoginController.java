@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +30,7 @@ public class LoginController {
 
     //login
     @RequestMapping(value = "/Login",method= RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpSession session, Model model) throws SQLException, ClassNotFoundException {
+    public String login(HttpServletRequest request, HttpSession session, Model model, ModelMap modelmap) throws SQLException, ClassNotFoundException {
 
         String email=request.getParameter("email");
         String password=request.getParameter("password");
@@ -38,13 +39,12 @@ public class LoginController {
 
         if (userService.validate(email,password)== true){
             user=userService.getByEmail(email);
-
             session.setAttribute("userId", user.getUserId());
             session.setAttribute("role", user.getRole());
 
             String name=user.getUserNom();
             String lastName=user.getUserPrenom();
-
+            modelmap.put("name",user.getUserNom());
 
             if(user.getRole().getRoleName().equals("Admin")){
                 model.addAttribute("model", name);
@@ -55,13 +55,15 @@ public class LoginController {
             else{
                 model.addAttribute("model", name);
                 model.addAttribute("model", lastName);
-System.out.println(name);
+                System.out.println(name);
                 return
                         "redirect:/studentPage";
             }
 
         }else{
             System.out.println("Compte not found");
+           
+
             return "redirect:/loginPage";
         }
     }
