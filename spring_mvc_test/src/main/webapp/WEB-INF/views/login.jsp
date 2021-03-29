@@ -19,6 +19,7 @@
 </nav>
             <div class='login-box'>
                 <h1>Login here</h1>
+                <!-- <div class="error"></div> -->
                 <form action="Login" method="post">
                     <p>Email</p>
                     <input type="email" name="email" placeholder="Entrer Email">

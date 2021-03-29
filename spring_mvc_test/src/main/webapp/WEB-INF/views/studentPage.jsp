@@ -11,8 +11,7 @@
     <link href="<c:url value="/resources/student.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/boot.css" />" rel="stylesheet">
 
-    <title>Home Page</title>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <title>Student Page</title>
 </head>
 <body>
 <div class="container-fluid">
@@ -32,16 +31,16 @@
     <!-- aside-area -->
     <div class="col-sm-2">
         <ul id="side-menu" class="nav" >
-            <li ><a class="nav-link active" href="studentPage"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Ajouter Reservation</a></li>
+            <li ><a class="nav-link active" href="studentPage"><i class="fa fa-home" aria-hidden="true"></i>Add Reservation</a></li>
             <li ><a class="nav-link" href="studentHistory"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;Voir L'historique</a></li>
-            <li><a class="nav-link" href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a></li>
+            <li><a class="nav-link" href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;Logout</a></li>
         </ul>
     </div>
     <!-- End aside area -->
     <!-- Main area -->
     <div class="col-sm-10">
         <br>
-        <h2>Welcome ${model.name}</h2>
+        <h2>Welcome ${name}</h2>
         <h2>Ajouter Nouveaux Reservation</h2>
         <hr>
         <br>
