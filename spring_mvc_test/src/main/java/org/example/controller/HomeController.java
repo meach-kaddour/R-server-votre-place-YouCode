@@ -2,28 +2,35 @@ package org.example.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
+import org.example.entities.Reservation;
+import org.example.entities.Student;
 import org.example.entities.Users;
+import org.example.services.ReservationService;
+import org.example.services.StudentService;
 import org.example.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
 public class HomeController {
 
-	@Qualifier("UserService")
 	@Autowired
 	private UserService userService;
 	Users user;
-
+	@Autowired
+	private ReservationService reservationService;
+	Reservation reservation;
+	
+	@Autowired
+	private StudentService studentService;
+	Student student ;
+		
 	@RequestMapping(value="/")
 	public String showHomePage(Model model) throws IOException{
 		model.addAttribute("user", user);
@@ -40,25 +47,21 @@ public class HomeController {
 		model.addAttribute("user", user);
 		return "login";
 	}
-	//get student page
-	@RequestMapping(value="/studentPage")
-	public String showStudentPage(Model model) throws IOException{
-		model.addAttribute("user", user);
-		return "studentPage";
+	 //lister users
+    @RequestMapping(value="/adminHistory")
+	public String loadReser(Model model,ModelMap modelMap) throws IOException, ClassNotFoundException, SQLException{
+		
+    	model.addAttribute("user", user);
+		model.addAttribute("reservation", reservation);
+		List<Users> userList = userService.findAll();
+		modelMap.put("etudiants", userList);
+		
+		return "adminHistory";
 	}
-	//get dash admin page
-	@RequestMapping(value="/dashboard")
-	public String showDashbordPage(Model model) throws IOException{
-		model.addAttribute("etudiants", user);
-		return "dashboard";
-	}
+	
+	
+	
 
-	//get history Reservation page
-	@RequestMapping(value="/studentHistory")
-	public String showHistoryPage(Model model) throws IOException{
-		model.addAttribute("user", user);
-		return "studentHistory";
-	}
 
 
 

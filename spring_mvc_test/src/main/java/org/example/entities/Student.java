@@ -44,7 +44,7 @@ public class Student extends Users implements Serializable {
         this.reservations = reservations;
     }
 
-    //Constructors
+//Constructors
     public Student(){}
 
     public Student(Users  users){
@@ -63,6 +63,16 @@ public class Student extends Users implements Serializable {
         this.users = users;
         this.valide = valide;
     }
+
+	@Override
+	public String toString() {
+		return "Student [reservations=" + reservations + ", valide=" + valide + ", getUserId()="
+				+ getUserId() + ", getUserNom()=" + getUserNom() + ", getUserPrenom()=" + getUserPrenom()
+				+ ", getUserEmail()=" + getUserEmail() + ", getUserPassword()=" + getUserPassword() + ", getAdmin()="
+				+ getAdmin() + ", getStudent()=" + getStudent() + ", getRole()=" + getRole() + ", toString()="
+				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+	}
+    
 
 
 }

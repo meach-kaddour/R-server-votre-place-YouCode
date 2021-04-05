@@ -7,7 +7,9 @@ import java.io.Serializable;
 @PrimaryKeyJoinColumn(name = "user_id")
 @Table
 public class Administrator extends Users implements Serializable {
-    @OneToOne
+    
+	private static final long serialVersionUID = 1L;
+	@OneToOne
     @JoinColumn(name = "user_id")
     private Users users;
 
@@ -17,13 +19,23 @@ public class Administrator extends Users implements Serializable {
     }
 
 
-    public Administrator(String userNom, String userPrenom, String userEmail, String userPassword, Administrator administrator, Student student, Roles role) {
-        super(userNom, userPrenom, userEmail, userPassword, administrator, student, role);
-        this.users = users;
 
-    }
+    public Administrator(Long userId, String userNom, String userPrenom, String userEmail, String userPassword,
+			Administrator administrator, Student student, Roles role) {
+		super(userId, userNom, userPrenom, userEmail, userPassword, administrator, student, role);
+	}
 
-    public Administrator(Users users) {
+
+
+	public Administrator(String userNom, String userPrenom, String userEmail, String userPassword,
+			Administrator administrator, Student student, Roles role) {
+		super(userNom, userPrenom, userEmail, userPassword, administrator, student, role);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public Administrator(Users users) {
         this.users = users;
 
     }

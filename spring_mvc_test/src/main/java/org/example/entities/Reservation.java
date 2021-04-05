@@ -1,40 +1,48 @@
 package org.example.entities;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "Reservation")
 public class Reservation implements Serializable {
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+	
     @Column(nullable = false)
-    private Date dateRes;
+    private String dateRes;
 
     private boolean confirmation;
     @ManyToOne
     @JoinColumn(name = "userId")
     private Student student;
 
-    @OneToOne(cascade=CascadeType.ALL)
-    private TypeReservation typeRes;
+    //@OneToOne(cascade=CascadeType.ALL)
+    private String typeRes;
 
 
 //Constructors
 
     public Reservation(){}
 
-    public Reservation(Student student, Date dateRes, boolean confirmation, TypeReservation typeRes) {
+    public Reservation(Student student, String dateRes, boolean confirmation, String typeRes) {
         this.student = student;
         this.dateRes = dateRes;
         this.confirmation = confirmation;
         this.typeRes = typeRes;
     }
 
-    public Reservation(Long id, Student student, Date dateRes, boolean confirmation, TypeReservation typeRes) {
+    public Reservation(Long id, Student student, String dateRes, boolean confirmation, String typeRes) {
         this.id = id;
         this.student = student;
         this.dateRes = dateRes;
@@ -53,11 +61,11 @@ public class Reservation implements Serializable {
         this.id = id;
     }
 
-    public Date getDateRes() {
+    public String getDateRes() {
         return dateRes;
     }
 
-    public void setDateRes(Date dateRes) {
+    public void setDateRes(String dateRes) {
         this.dateRes = dateRes;
     }
 
@@ -77,11 +85,11 @@ public class Reservation implements Serializable {
         this.student = student;
     }
 
-    public TypeReservation getTypeRes() {
+    public String getTypeRes() {
         return typeRes;
     }
 
-    public void setTypeRes(TypeReservation typeRes) {
+    public void setTypeRes(String typeRes) {
         this.typeRes = typeRes;
     }
 

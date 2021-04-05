@@ -7,7 +7,7 @@
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property><!-- ou son nouveau
 			nom com.mysql.cj.jdbc.Driver -->
-        <property name="connection.url">jdbc:mysql://localhost:3306/you?useSSL=false&amp;serverTimezone=Africa/Casablanca</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/you_reservation?useSSL=false&amp;serverTimezone=Africa/Casablanca</property>
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
 
@@ -36,7 +36,6 @@
         <mapping class="org.example.entities.Student" />
         <mapping class="org.example.entities.Administrator" />
         <mapping class="org.example.entities.Reservation" />
-        <mapping class="org.example.entities.SignUp" />
         <mapping class="org.example.entities.TypeReservation" />
 
 

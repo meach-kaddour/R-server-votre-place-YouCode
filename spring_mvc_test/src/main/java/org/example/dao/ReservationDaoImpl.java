@@ -59,21 +59,17 @@ public class ReservationDaoImpl implements ReservationDao{
         try {
 
             session = HibernateUtil.getSessionFactory().openSession();
-            org.hibernate.query.Query<Reservation> query = session.createQuery("SELECT rs FROM Reservation rs", Reservation.class);
+            org.hibernate.query.Query<Reservation> query = session.createQuery("SELECT rs FROM Reservation rs ", Reservation.class);
             //org.hibernate.query.Query<Student> query = session.createNamedQuery("students.All", Student.class);
             reservations = query.getResultList();
-
             System.out.println("Resrvations lus !");
         } finally {
             if (session != null) {
                 session.close();
             }
-
         }
-
         return reservations;
     }
-
     @Override
     public void dropReservation(long id) throws ClassNotFoundException, SQLException {
         Reservation reservation = getReservationById(id);
@@ -96,7 +92,6 @@ public class ReservationDaoImpl implements ReservationDao{
 
         }
     }
-
     @Override
     public Reservation updateReservation(Reservation reservation) throws ClassNotFoundException, SQLException {
         Reservation reservationUp = null;

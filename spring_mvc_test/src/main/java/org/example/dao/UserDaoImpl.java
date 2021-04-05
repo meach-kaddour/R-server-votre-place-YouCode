@@ -69,13 +69,9 @@ public class UserDaoImpl implements UserDao{
         try {
 
             session = HibernateUtil.getSessionFactory().openSession();
-            //org.hibernate.query.Query<Users> query = session.createQuery("SELECT u FROM Users u", Users.class);
-            //org.hibernate.query.Query<Users> query = session.createNamedQuery("GET_ALL_STUDENTS");
-            Query query = session.createQuery("select u from Users u join Student s where u.userId = s.userId ");
-            //query.setParameter("value1", "maValeur");
+            org.hibernate.query.Query<Users> query = session.createQuery("SELECT u FROM Users u", Users.class);
             users = query.getResultList();
-
-            System.out.println("Users lus !");
+            
         } finally {
             if (session != null) {
                 session.close();

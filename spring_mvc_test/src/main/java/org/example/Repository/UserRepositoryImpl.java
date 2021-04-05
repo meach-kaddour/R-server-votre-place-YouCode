@@ -2,7 +2,6 @@ package org.example.Repository;
 
 import org.example.HibernateUtil.HibernateUtil;
 import org.example.entities.Roles;
-import org.example.entities.SignUp;
 import org.example.entities.Users;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
