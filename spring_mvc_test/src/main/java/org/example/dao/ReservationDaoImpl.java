@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository("ReservationDao")
-@Component
 public class ReservationDaoImpl implements ReservationDao{
     Session session=null;
     Transaction transaction=null;

@@ -40,10 +40,10 @@ public class ReservationController {
 		
 		return model;
 	}
-
+		//Reserver 
 	@RequestMapping(value = "/addNewReservation", method = RequestMethod.POST)
-	public ModelAndView saveReservation(HttpServletRequest request)
-			throws ClassNotFoundException, SQLException {
+	public ModelAndView saveReservation(HttpServletRequest request) throws ClassNotFoundException, SQLException {
+		
 		String date = request.getParameter("date");
 		String type = request.getParameter("type");
 		Reservation reservation = new Reservation();
@@ -51,8 +51,9 @@ public class ReservationController {
 		reservation.setTypeRes(type);
 		reservation.setStudent((Student) LoginController.user);
 		reservationService.save(reservation);
-		return new ModelAndView("redirect:/studentHistory");
+		return new ModelAndView("redirect:/studentPage");
 	}
+	// Delete Reservation
 
 	@RequestMapping(value = "deleteReservation", method = RequestMethod.POST)
     public ModelAndView deleteReservation(HttpServletRequest request) {
@@ -65,14 +66,7 @@ public class ReservationController {
          return new ModelAndView("redirect:/dashboard");
     }
     	
-	@RequestMapping(value = "/reservation")
-	public ModelAndView listReservations(HttpServletResponse response, Model model)
-			throws IOException, ClassNotFoundException, SQLException {
-		List<Reservation> reservationList = reservationService.findAll();
-		model.addAttribute("reservations", reservationList);
-		System.out.println("list" + reservationList);
-		return new ModelAndView("dashboard");
-	}
+	
 	//confirm reservation
 	@RequestMapping(value = "confirmReservation", method = RequestMethod.POST)
     public ModelAndView accepterReservation(HttpServletRequest request) throws ClassNotFoundException, SQLException{

@@ -54,6 +54,7 @@ public class AdminController {
 	public ModelAndView saveReservation(HttpServletRequest request)
 			throws ClassNotFoundException, SQLException {
         Long id = Long.valueOf(request.getParameter("id"));
+        
         user=userService.findById(id);
         
         String name=user.getUserPrenom();
@@ -61,8 +62,11 @@ public class AdminController {
     	String email=user.getUserEmail();
     	String pass=user.getUserPassword();
     	Roles role=user.getRole();
+    	
     	student=new Student(name,lastName,email,pass,null,student,role,user,true);
+    	
     	studentService.save(student);
+    	
 
 		return new ModelAndView("redirect:/adminHistory");
 	}

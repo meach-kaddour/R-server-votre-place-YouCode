@@ -44,7 +44,7 @@ public class LoginController {
 
             String name=user.getUserNom();
             String lastName=user.getUserPrenom();
-            modelmap.put("name",user.getUserNom());
+            modelmap.put("name",name);
             	//Check Role 
             if(user.getRole().getRoleName().equals("Admin")){
                 model.addAttribute("model", name);
@@ -70,8 +70,7 @@ public class LoginController {
     }
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
-        session.getAttribute("name");
-        session.invalidate();
+    	session.removeAttribute("name");
         return "redirect:/loginPage";
     }
 }

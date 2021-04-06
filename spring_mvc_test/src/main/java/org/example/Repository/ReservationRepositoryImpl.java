@@ -1,5 +1,6 @@
 package org.example.Repository;
 
+import java.util.Date;
 import java.util.List;
 import org.example.HibernateUtil.HibernateUtil;
 import org.example.entities.Reservation;
@@ -25,6 +26,18 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 
 		}
 		return reservations;
+	}
+
+	@Override
+	public List<Reservation> getReservationConfirmi(String date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reservation> getReservationNonConfirmi(String date) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	}
