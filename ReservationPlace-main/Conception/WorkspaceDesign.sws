@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?PowerDesigner signature="Workspace" version="15.1.0.2850"?>
+<!-- Veuillez ne pas modifier ce fichier -->
+
+<Workspace>
+	<Local Expanded="Yes">
+		<Model Expanded="Yes" ID="{3E821D0D-0C4C-4148-89C6-04B52D9DF047}" Loaded="No" Name="Class Diagram_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="../../Gestion-d-absence/conception/umlApp.moo"/>
+		<Model Expanded="Yes" ID="{2604F08B-A7EC-41B2-A5C8-895E7F1E7D0E}" Loaded="No" Name="Class Diagram_1" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../../Gestion-d-absence/conception/Class Diagram_1.mpd"/>
+		<Model Expanded="Yes" ID="{55E56733-4EAD-4BBC-B845-B9A919F99117}" Loaded="No" Name="Reservation" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="../../brief Spring MVC/Conception/Reservation.moo"/>
+		<Model Expanded="Yes" ID="{34520A87-980F-4FA3-BD08-CB551FA25C0A}" Loaded="No" Name="Class Diagram_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="../../brief Spring MVC/Conception/UMLBrief.moo"/>
+		<Model Expanded="Yes" ID="{34520A87-980F-4FA3-BD08-CB551FA25C0A}" Name="Class Diagram_1" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="UMLBrief.moo"/>
+		<Model Expanded="Yes" ID="{34520A87-980F-4FA3-BD08-CB551FA25C0A}" Name="Class Diagram_1" OpenedReadOnly="Yes" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="UMLBrief.moo"/>
+	</Local>
+	<BrowserModule Name="Référentiel"/>
+</Workspace>
